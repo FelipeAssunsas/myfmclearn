@@ -9,20 +9,32 @@ variable (P Q R : Prop)
 
 theorem doubleneg_intro :
     P → ¬ ¬ P  := by
-  sorry
+  intro hp  --dados:p  alvos:¬p → ⊥ <=>def (p → ⊥) → ⊥
+  intro h_nao_p  --dados:p,¬p  alvos:⊥
+  apply h_nao_p --dados:p,¬p  alvos:p
+  exact hp
+
 
 theorem doubleneg_elim :
     ¬ ¬ P → P  := by
-  sorry
+    example (p : Prop) : ¬ ¬ p →  p := by
+  intro h_nao_nao_p  --Dados:¬ ¬ p  Alvos:p
+  by_cases h_p : p
+  . exact h_p
+  . contradiction
+
 
 theorem doubleneg_law :
     ¬ ¬ P ↔ P  := by
-  sorry
+    constructor
+      .intro h_nao_nao_p
+        by_cases h_p : p
+        . exact h_p
+        . contradiction
+      .intro h_p
+        intro h_nao_p
+        exact h_nao_p h_p
 
-
-------------------------------------------------
--- Commutativity of ∨,∧
-------------------------------------------------
 
 theorem disj_comm :
     (P ∨ Q) → (Q ∨ P)  := by
